@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Write = () => {
 	const [title, setTitle] = useState("");
@@ -9,6 +10,9 @@ const Write = () => {
 	const [prompt, setPrompt] = useState("");
 	const [story, setStory] = useState("");
 	const [error, setError] = useState("");
+	const [imageUrl, setImageUrl] = useState("");
+
+	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -32,6 +36,37 @@ const Write = () => {
 			}
 		} catch (error) {
 			console.error("Error generating story:", error);
+			setError("서버와의 통신 중 오류가 발생했습니다.");
+		}
+	};
+
+	const handleSave = async () => {
+		if (!title || !author || !locations || !story) {
+			setError("모든 필드를 입력해야 합니다.");
+			return;
+		}
+
+		try {
+			const requestData = {
+				title,
+				author,
+				location: locations.split(",").map((loc) => loc.trim()).join(", "),
+				story,
+				image_url: imageUrl || undefined,
+			};
+
+			console.log("Request Data:", requestData);
+
+			const response = await axios.post("http://44.192.73.111:5000/add_story", requestData);
+
+			if (response.status === 201) {
+				alert("이야기가 성공적으로 저장되었습니다.");
+				navigate("/");
+			} else {
+				setError("이야기를 저장하는 데 실패했습니다.");
+			}
+		} catch (error) {
+			console.error("Error saving story:", error);
 			setError("서버와의 통신 중 오류가 발생했습니다.");
 		}
 	};
@@ -78,7 +113,12 @@ const Write = () => {
 			{story && (
 				<StoryContainer>
 					<h3>AI가 생성한 이야기:</h3>
-					<p>{story}</p>
+					<Textarea
+						value={story}
+						onChange={(e) => setStory(e.target.value)}
+						rows={5}
+					></Textarea>
+					<Button type="button" onClick={handleSave}>저장</Button>
 				</StoryContainer>
 			)}
 			{error && <ErrorMessage>{error}</ErrorMessage>}
