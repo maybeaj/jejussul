@@ -112,13 +112,13 @@ const Write = () => {
 			</Form>
 			{story && (
 				<StoryContainer>
-					<h3>AI가 생성한 이야기:</h3>
+					<Label>AI가 생성한 이야기:</Label>
 					<Textarea
 						value={story}
 						onChange={(e) => setStory(e.target.value)}
 						rows={5}
 					></Textarea>
-					<Button type="button" onClick={handleSave}>저장</Button>
+					<StyledButton type="button" onClick={handleSave}>저장</StyledButton>
 				</StoryContainer>
 			)}
 			{error && <ErrorMessage>{error}</ErrorMessage>}
@@ -177,6 +177,7 @@ const Textarea = styled.textarea`
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	resize: none;
+    width: 100%;
 	font-family: Arial, sans-serif;
 `;
 
@@ -189,13 +190,21 @@ const Button = styled.button`
 	border-radius: 5px;
 	cursor: pointer;
 	transition: background-color 0.3s;
+	width: 100%;
 
 	&:hover {
 		background-color: #0056b3;
 	}
 `;
 
+const StyledButton = styled(Button)`
+	margin-top: 10px;
+`;
+
 const StoryContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 	margin-top: 20px;
 	padding: 20px;
 	background-color: #fff;
