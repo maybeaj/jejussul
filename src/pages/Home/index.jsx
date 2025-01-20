@@ -37,7 +37,7 @@ const Home = () => {
 				<WriteButton onClick={() => navigate('/write')}>글쓰기</WriteButton>
 			</Header>
 			{rankings.map((item) => (
-				<RankingItem key={item.id} onClick={() => navigate('/detail')}>
+				<RankingItem key={item.id} onClick={() => navigate(`/detail/${item.id}`)}>
 					<RankNumber>{item.id}</RankNumber>
 					<Image src={item.image_url} />
 					<Info>
