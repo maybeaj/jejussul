@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const Write = () => {
 	const [title, setTitle] = useState("");
@@ -15,23 +16,17 @@ const Write = () => {
 		setStory("");
 
 		try {
-			const response = await fetch("http://your-backend-url", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					title,
-					author,
-					locations: locations.split(",").map((loc) => loc.trim()),
-					prompt,
-				}),
+			const response = await axios.post("http://44.192.73.111:5000/generate_story", {
+				title,
+				author,
+				locations: locations.split(",").map((loc) => loc.trim()),
+				prompt,
 			});
 
-			const data = await response.json();
+			console.log("Response data:", response.data);
 
-			if (data.story) {
-				setStory(data.story);
+			if (response.data.story) {
+				setStory(response.data.story);
 			} else {
 				setError("이야기를 생성하는 데 실패했습니다.");
 			}
@@ -67,7 +62,7 @@ const Write = () => {
 					type="text"
 					value={locations}
 					onChange={(e) => setLocations(e.target.value)}
-					placeholder="관광명소 키워드 (쉼표로 구분)"
+					placeholder="예) 한라산, 성산일출봉, 오설록테마파크"
 					required
 				/>
 				<Label>AI 요청 프롬프트</Label>
