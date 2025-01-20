@@ -6,57 +6,28 @@ import axios from "axios";
 const Home = () => {
 	const navigate = useNavigate();
 	const [rankings, setRankings] = useState([
-		{
-			rank: 1,
-			title: "프레스터 경의 비밀 ...",
-			author: "성하",
-			genre: "로판",
-			views: 3444,
-			image: "url-to-image-1",
-		},
-		{
-			rank: 2,
-			title: "뺏긴 자리에 미련 없...",
-			author: "최아리",
-			genre: "로판",
-			views: 2436,
-			image: "url-to-image-2",
-		},
-		{
-			rank: 3,
-			title: "낮 유어 프렌드",
-			author: "리봄",
-			genre: "로맨스",
-			views: 2472,
-			image: "url-to-image-3",
-		},
-		{
-			rank: 4,
-			title: "계약이 끝나는 날",
-			author: "구르미르",
-			genre: "로맨스",
-			views: 2507,
-			image: "url-to-image-4",
-		},
-		{
-			rank: 5,
-			title: "남편의 채운",
-			author: "초아",
-			genre: "로맨스",
-			views: 1900,
-			image: "url-to-image-5",
-		},
 	]);
 
 	useEffect(() => {
-		// 백엔드에서 데이터를 가져오는 부분은 주석 처리하거나 나중에 추가
-		// axios.get('/api/rankings')
-		// 	.then(response => {
-		// 		setRankings(response.data);
-		// 	})
-		// 	.catch(error => {
-		// 		console.error("Error fetching rankings:", error);
-		// 	});
+		axios.get('http://44.192.73.111:5000/get_stories')
+			.then(response => {
+				const parsedData = response.data.map((item, index) => ({
+					id: item[0],
+					author: item[1],
+					location: item[2],
+					story: item[3],
+					title: item[4],
+					rank: index + 1,
+					likes: item[5],
+					views: item[6],
+					image_url: item[7],
+				}));
+				console.log(response.data);
+				setRankings(parsedData);
+			})
+			.catch(error => {
+				console.error("Error fetching rankings:", error);
+			});
 	}, []);
 
 	return (
@@ -66,13 +37,13 @@ const Home = () => {
 				<WriteButton onClick={() => navigate('/write')}>글쓰기</WriteButton>
 			</Header>
 			{rankings.map((item) => (
-				<RankingItem key={item.rank} onClick={() => navigate('/detail')}>
-					<RankNumber>{item.rank}</RankNumber>
-					<Image src={item.image} />
+				<RankingItem key={item.id} onClick={() => navigate('/detail')}>
+					<RankNumber>{item.id}</RankNumber>
+					<Image src={item.image_url} />
 					<Info>
 						<SSulTitle>{item.title}</SSulTitle>
 						<Details>
-							{item.author} · {item.genre} · 조회수 {item.views}
+							{item.author} · 따봉수 {item.likes} · 조회수 {item.views}
 						</Details>
 					</Info>
 				</RankingItem>
