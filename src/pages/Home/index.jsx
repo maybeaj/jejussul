@@ -7,28 +7,28 @@ const Home = () => {
   const navigate = useNavigate();
   const [rankings, setRankings] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get("http://44.200.180.53:5000/get_stories")
-      .then((response) => {
-        const parsedData = response.data.map((item, index) => ({
-          id: item[0],
-          author: item[1],
-          location: item[2],
-          story: item[3],
-          title: item[4],
-          rank: index + 1,
-          likes: item[5],
-          views: item[6],
-          image_url: item[7],
-        }));
-        console.log(response.data);
-        setRankings(parsedData);
-      })
-      .catch((error) => {
-        console.error("Error fetching rankings:", error);
-      });
-  }, []);
+	useEffect(() => {
+		axios.get('http://44.200.180.53:5000/get_stories')
+			.then(response => {
+				const parsedData = response.data.map((item, index) => ({
+					id: item[0],
+					author: item[1],
+					location: item[2],
+					story: item[3],
+					title: item[4],
+					rank: index + 1,
+					likes: item[5],
+					views: item[6],
+					image_url: item[7],
+				}));
+				console.log(response.data);
+				setRankings(parsedData);
+			})
+			.catch(error => {
+				console.error("Error fetching rankings:", error);
+			});
+	}, []);
+
 
   return (
     <Container>

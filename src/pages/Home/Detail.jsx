@@ -219,9 +219,10 @@ const Title = styled.h1`
 `;
 
 const SubTitle = styled.h2`
-  font-size: 1.5em;
+  font-size: 1.3em;
   margin-bottom: 1em;
   text-align: center;
+  color: #333;
 `;
 
 const InfoSection = styled.div`
