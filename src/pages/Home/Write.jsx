@@ -127,47 +127,47 @@ const Write = () => {
 };
 
 const Container = styled.div`
-	width: 600px;
-	margin: 50px auto;
-	padding: 20px;
-	background-color: #f9f9f9;
-	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	font-family: Arial, sans-serif;
-	color: #333;
+  width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  color: #333;
 `;
 
 const Title = styled.h1`
-	font-size: 24px;
-	text-align: center;
-	margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
 `;
 
 const Subtitle = styled.h2`
-	font-size: 18px;
-	text-align: center;
-	margin-bottom: 20px;
-	color: #555;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #555;
 `;
 
 const Form = styled.form`
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Label = styled.label`
-	margin-bottom: 5px;
-	font-size: 14px;
-	color: #333;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #333;
 `;
 
 const Input = styled.input`
-	margin-bottom: 15px;
-	padding: 10px;
-	font-size: 16px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	font-family: Arial, sans-serif;
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
 `;
 
 const Textarea = styled.textarea`
@@ -213,9 +213,9 @@ const StoryContainer = styled.div`
 `;
 
 const ErrorMessage = styled.div`
-	margin-top: 10px;
-	color: red;
-	text-align: center;
+  margin-top: 10px;
+  color: red;
+  text-align: center;
 `;
 
 export default Write;
