@@ -1,7 +1,16 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
+const GlobalStyle = createGlobalStyle`
+	body {
+		background-image: url('/write.jpg');
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+`;
 
 const Write = () => {
 	const [title, setTitle] = useState("");
@@ -72,102 +81,106 @@ const Write = () => {
 	};
 
 	return (
-		<Container>
-			<Title>제주도 이야기 생성 서비스</Title>
-			<Subtitle>관광명소 키워드로 AI가 생성한 이야기를 작성해보세요!</Subtitle>
-			<Form onSubmit={handleSubmit}>
-				<Label>글 제목</Label>
-				<Input
-					type="text"
-					value={title}
-					onChange={(e) => setTitle(e.target.value)}
-					placeholder="제목을 입력하세요"
-					required
-				/>
-				<Label>작성자</Label>
-				<Input
-					type="text"
-					value={author}
-					onChange={(e) => setAuthor(e.target.value)}
-					placeholder="작성자 이름을 입력하세요"
-					required
-				/>
-				<Label>관광명소 키워드</Label>
-				<Input
-					type="text"
-					value={locations}
-					onChange={(e) => setLocations(e.target.value)}
-					placeholder="예) 한라산, 성산일출봉, 오설록테마파크"
-					required
-				/>
-				<Label>AI 요청 프롬프트</Label>
-				<Textarea
-					value={prompt}
-					onChange={(e) => setPrompt(e.target.value)}
-					placeholder="AI에게 요청할 이야기를 간략히 설명하세요"
-					rows={5}
-					required
-				></Textarea>
-				<Button type="submit">글 생성</Button>
-			</Form>
-			{story && (
-				<StoryContainer>
-					<Label>AI가 생성한 이야기:</Label>
+		<>
+			<GlobalStyle />
+			<Container>
+				<Title>제주도 이야기 생성 서비스</Title>
+				<Subtitle>관광명소 키워드로 AI가 생성한 이야기를 작성해보세요!</Subtitle>
+				<Form onSubmit={handleSubmit}>
+					<Label>글 제목</Label>
+					<Input
+						type="text"
+						value={title}
+						onChange={(e) => setTitle(e.target.value)}
+						placeholder="제목을 입력하세요"
+						required
+					/>
+					<Label>작성자</Label>
+					<Input
+						type="text"
+						value={author}
+						onChange={(e) => setAuthor(e.target.value)}
+						placeholder="작성자 이름을 입력하세요"
+						required
+					/>
+					<Label>관광명소 키워드</Label>
+					<Input
+						type="text"
+						value={locations}
+						onChange={(e) => setLocations(e.target.value)}
+						placeholder="예) 한라산, 성산일출봉, 오설록테마파크"
+						required
+					/>
+					<Label>AI 요청 프롬프트</Label>
 					<Textarea
-						value={story}
-						onChange={(e) => setStory(e.target.value)}
+						value={prompt}
+						onChange={(e) => setPrompt(e.target.value)}
+						placeholder="AI에게 요청할 이야기를 간략히 설명하세요"
 						rows={5}
+						style={{ width: "580px" }}
+						required
 					></Textarea>
-					<StyledButton type="button" onClick={handleSave}>저장</StyledButton>
-				</StoryContainer>
-			)}
-			{error && <ErrorMessage>{error}</ErrorMessage>}
-		</Container>
+					<Button type="submit">글 생성</Button>
+				</Form>
+				{story && (
+					<StoryContainer>
+						<Label>AI가 생성한 이야기:</Label>
+						<Textarea
+							value={story}
+							onChange={(e) => setStory(e.target.value)}
+							rows={5}
+						></Textarea>
+						<StyledButton type="button" onClick={handleSave}>저장</StyledButton>
+					</StoryContainer>
+				)}
+				{error && <ErrorMessage>{error}</ErrorMessage>}
+			</Container>
+		</>
 	);
 };
 
 const Container = styled.div`
-  width: 600px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-  color: #333;
+	width: 600px;
+	margin: 50px auto;
+	padding: 20px;
+	background-color: #f9f9f9;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	font-family: Arial, sans-serif;
+	color: #333;
 `;
 
 const Title = styled.h1`
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 20px;
+	font-size: 24px;
+	text-align: center;
+	margin-bottom: 20px;
 `;
 
 const Subtitle = styled.h2`
-  font-size: 18px;
-  text-align: center;
-  margin-bottom: 20px;
-  color: #555;
+	font-size: 18px;
+	text-align: center;
+	margin-bottom: 20px;
+	color: #555;
 `;
 
 const Form = styled.form`
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 `;
 
 const Label = styled.label`
-  margin-bottom: 5px;
-  font-size: 14px;
-  color: #333;
+	margin-bottom: 5px;
+	font-size: 14px;
+	color: #333;
 `;
 
 const Input = styled.input`
-  margin-bottom: 15px;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-family: Arial, sans-serif;
+	margin-bottom: 15px;
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-family: Arial, sans-serif;
 `;
 
 const Textarea = styled.textarea`
@@ -177,7 +190,7 @@ const Textarea = styled.textarea`
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	resize: none;
-    width: 100%;
+	width: 100%;
 	font-family: Arial, sans-serif;
 `;
 
@@ -185,7 +198,7 @@ const Button = styled.button`
 	padding: 10px;
 	font-size: 16px;
 	color: #fff;
-	background-color: #006400;
+	background-color: #398EB3;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
@@ -213,9 +226,9 @@ const StoryContainer = styled.div`
 `;
 
 const ErrorMessage = styled.div`
-  margin-top: 10px;
-  color: red;
-  text-align: center;
+	margin-top: 10px;
+	color: red;
+	text-align: center;
 `;
 
 export default Write;
