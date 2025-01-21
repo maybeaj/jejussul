@@ -20,7 +20,7 @@ const Write = () => {
 		setStory("");
 
 		try {
-			const response = await axios.post("http://44.192.73.111:5000/generate_story", {
+			const response = await axios.post("http://44.200.180.53:5000/generate_story", {
 				title,
 				author,
 				locations: locations.split(",").map((loc) => loc.trim()),
@@ -57,7 +57,7 @@ const Write = () => {
 
 			console.log("Request Data:", requestData);
 
-			const response = await axios.post("http://44.192.73.111:5000/add_story", requestData);
+			const response = await axios.post("http://44.200.180.53:5000/add_story", requestData);
 
 			if (response.status === 201) {
 				alert("이야기가 성공적으로 저장되었습니다.");

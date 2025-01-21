@@ -9,7 +9,7 @@ const Home = () => {
 	]);
 
 	useEffect(() => {
-		axios.get('http://44.192.73.111:5000/get_stories')
+		axios.get('http://44.200.180.53:5000/get_stories')
 			.then(response => {
 				const parsedData = response.data.map((item, index) => ({
 					id: item[0],
